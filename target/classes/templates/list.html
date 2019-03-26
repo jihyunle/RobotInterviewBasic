@@ -1,0 +1,61 @@
+<!-- Messages -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>View All Jobs</title>
+    <th:block th:replace="~{base :: header}"></th:block>
+</head>
+<body>
+    <div th:insert="~{base :: nav}"></div>
+
+    <!-- Database-->
+    <div class="container">
+        <h2 class="text-center">Jobs</h2>
+        <table class="table table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th>Position Title</th>
+                    <th>Company Name</th>
+                    <th>Company Logo</th>
+                    <th>Job Description</th>
+                    <th>Requirements</th>
+                    <th>Posted Date</th>
+                    <th>Actions</th>
+                    <!--<th>Actions</th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="job : ${jobs}">
+                    <td th:text="${job.title}"></td>
+                    <td th:text="${job.companyName}"></td>
+                    <td>
+                        <img th:src="${job.companyLogo == null}?'':${job.companyLogo}" style="height: auto; width: auto"  />
+                    </td>
+                    <td th:text="${job.description}"></td>
+                    <td>
+                        <textarea th:text="${job.description}"></textarea>
+                    </td>
+                    <td th:text="${job.postedDate}"></td>
+                    <td>
+                        <!-- Anyone can see Details -->
+                        <a class="btn btn-warning" th:href="@{#}">Details</a>
+                        <!-- Only the user that made the post can update -->
+                        <span th:if="${user_id == message.user.id}">
+                            <a class="btn btn-primary" th:href="@{#}">Apply Now</a>
+                            <a class="btn btn-default" th:href="@{#}">Save Job</a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Footer -->
+    <div th:replace="base :: footer"></div>
+    <!-- JS Links -->
+    <div th:replace="base :: jslinks"></div>
+
+</body>
+</html>

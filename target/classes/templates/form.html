@@ -1,0 +1,81 @@
+<!-- Post a New Message -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Apply Now</title>
+    <th:block th:insert="base :: header"></th:block>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <div th:replace="base :: nav"></div>
+
+    <!-- Form -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Job Application</h3>
+
+                <form action="#"
+                      th:action="@{/process}"
+                      th:object="${user}"
+                      method="post"
+                      enctype="multipart/form-data">
+
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label for="fullName">Name</label>
+                        <input type="text" th:field="*{fullName}"
+                               class="form-control" id="fullName" />
+                        <span th:if="${#fields.hasErrors('fullName')}"
+                              th:errors="*{fullName}"></span><br />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" th:field="*{email}"
+                               class="form-control" id="email" />
+                        <span th:if="${#fields.hasErrors('email')}"
+                              th:errors="*{email}"></span><br />
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="interviewTime">Interview Time</label>-->
+                        <!--<input type="datetime-local" th:field="*{interviewTime}"-->
+                               <!--class="form-control" id="interviewTime" name="" />-->
+                        <!--<span th:if="${#fields.hasErrors('interviewTime')}"-->
+                              <!--th:errors="*{interviewTime}"></span><br />-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="appStatus">Application Status</label>-->
+                        <!--<input type="text" th:field="*{appStatus}"-->
+                               <!--class="form-control" id="appStatus" />-->
+                        <!--<span th:if="${#fields.hasErrors('appStatus')}"-->
+                              <!--th:errors="*{appStatus}"></span><br />-->
+                    <!--</div>-->
+                    <div>
+                        File upload
+                        <br />
+                        <input type="file" name="file"><br />
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary my-1">Save</button>
+                    <!-- Cancel button -->
+                    <a class="btn btn-default" th:href="@{/}">Cancel</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="base :: footer"></div>
+    <!-- JS Links -->
+    <div th:replace="base :: jslinks"></div>
+
+</body>
+</html>
